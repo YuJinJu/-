@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.vue.model.mapper.AnswerMapper">
+
+   <!-- qno에 해당하는 answer 조회 -->
+   <select id="list" resultType="AnswerDto">
+      select ano, userid, answer, answertime, qno
+      from answer
+      where qno = #{qno}
+      order by answertime desc
+   </select>
+
+   <!-- answer 등록 -->
+   <insert id="create" parameterType="AnswerDto">
+      insert into answer(
+          userid, answer, answertime, qno
+      ) values (
+          #{userid}, #{answer}, now(), #{qno}
+      )
+   </insert>
+   
+   <!-- answer 수정 -->
+   <update id="modify" parameterType="AnswerDto">
+      <![CDATA[
+      update answer
+      set answer = #{answer}
+      where ano = #{ano}
+      ]]>
+   </update>
+
+   <!-- qno에 따른 answer 정보 삭제 -->
+   <delete id="delete" parameterType="int">
+      delete
+      from answer
+      where ano = #{ano}
+   </delete>
+
+</mapper>
